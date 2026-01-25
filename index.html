@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姫路スタイル | 姫路支店・サテライトオフィスを初期費用0円で</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // 必要に応じてカスタムカラーを追加できますが、今回はTailwindのデフォルトパレットを使用します。
+                        // 'himeji-red': '#e11d48', // 例: rose-600
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up { animation: fade-up 0.8s ease-out forwards; }
+        
+        /* 青系グラデーションから赤系グラデーションへ変更 (rose-600 to pink-700) */
+        .text-gradient {
+            background: linear-gradient(135deg, #e11d48, #be185d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const Icon = ({ name, size = 24, className = "" }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons({ targets: [iconRef.current] });
+                }
+            }, [name]);
+            return <i ref={iconRef} data-lucide={name} style={{ width: size, height: size }} className={`inline-block ${className}`}></i>;
+        };
+
+        const App = () => {
+            const contactUrl = "https://himejistyle.jp/contact/";
+            const homeUrl = "https://himejistyle.jp/";
+
+            return (
+                <div className="min-h-screen flex flex-col overflow-x-hidden">
+                    {/* Navigation */}
+                    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+                            <a href={homeUrl} className="flex items-center hover:opacity-70 transition-opacity">
+                                <img src="images/himejistylelogo1" alt="姫路スタイル" className="h-6 sm:h-8 w-auto" />
+                            </a>
+                            <div className="hidden md:flex gap-8 text-sm font-bold text-slate-500 uppercase tracking-wider">
+                                {/* hover:text-blue-600 -> hover:text-rose-600 */}
+                                <a href="#why" className="hover:text-rose-600 transition-colors">選ばれる理由</a>
+                                <a href="#price" className="hover:text-rose-600 transition-colors">料金プラン</a>
+                                <a href="#contact" className="hover:text-rose-600 transition-colors">お問い合わせ</a>
+                            </div>
+                            {/* bg-blue-600 -> bg-rose-600, hover:bg-blue-700 -> hover:bg-rose-700, shadow-blue-100 -> shadow-rose-100 */}
+                            <a href={contactUrl} target="_blank" className="bg-rose-600 text-white px-5 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold hover:bg-rose-700 transition-all shadow-lg shadow-rose-100">
+                                内覧・資料請求
+                            </a>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-white">
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="grid lg:grid-cols-2 gap-16 items-center">
+                                <div className="animate-fade-up">
+                                    {/* bg-blue-50 -> bg-rose-50, text-blue-700 -> text-rose-700 */}
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-bold mb-6 tracking-wider">
+                                        姫路駅 徒歩15分 | 大手企業のサテライト拠点・支店開設に
+                                    </div>
+                                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.2] mb-8">
+                                        {/* text-blue-600 -> text-rose-600 */}
+                                        初期費用<span className="text-rose-600">0円</span>で、<br />
+                                        姫路に拠点を。
+                                    </h1>
+                                    <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-xl">
+                                        保証金・仲介手数料・事務手数料すべて<span className="text-slate-900 font-bold">無料</span>。<br />
+                                        水道光熱費・Wi-Fi・オフィス家具も完備しており、PC一台で最短翌日からビジネスを開始できる「即戦力」のオフィスです。
+                                    </p>
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <a href={contactUrl} className="flex items-center justify-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 hover:-translate-y-1">
+                                            空室状況を確認する <Icon name="arrow-right" size={20} />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="relative animate-fade-up" style={{animationDelay: '0.2s'}}>
+                                    <div className="rounded-[2.5rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border border-slate-100">
+                                        <img src="images/himejistyleimage1" alt="Himeji Office" className="w-full aspect-[4/3] object-cover" />
+                                        <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/90 backdrop-blur rounded-2xl border border-white/50 shadow-lg">
+                                            {/* text-blue-600 -> text-rose-600 */}
+                                            <p className="text-xs font-bold text-rose-600 mb-1 uppercase tracking-widest">Limited Offer</p>
+                                            <p className="text-2xl font-black text-slate-900">初期費用 0<span className="text-sm font-bold ml-1">円キャンペーン中</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* 選ばれる理由 Section */}
+                    <section id="why" className="py-24 bg-slate-50 relative overflow-hidden">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="text-center mb-20">
+                                {/* text-blue-600 -> text-rose-600 */}
+                                <h2 className="text-sm font-black text-rose-600 uppercase tracking-[0.3em] mb-4">Why Himeji Style</h2>
+                                <p className="text-3xl sm:text-4xl font-black text-slate-900">大手企業や新規進出企業に<br className="sm:hidden" />選ばれる3つの理由</p>
+                            </div>
+
+                            <div className="grid lg:grid-cols-3 gap-8 items-start">
+                                {/* Reason 1 */}
+                                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 h-full">
+                                    {/* bg-blue-50 -> bg-rose-50, text-blue-600 -> text-rose-600 */}
+                                    <div className="w-14 h-14 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-6">
+                                        <Icon name="coins" size={28} />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-4 text-slate-900">初期コストの徹底削減</h3>
+                                    <p className="text-slate-500 leading-relaxed text-sm">
+                                        {/* text-blue-600 -> text-rose-600 */}
+                                        一般的なオフィス賃貸でかかる保証金（賃料数ヶ月分）や仲介手数料が<span className="text-rose-600 font-bold">0円</span>。家具やネット回線も備え付けのため、什器の購入費用も大幅にカットできます。
+                                    </p>
+                                </div>
+
+                                {/* Reason 2 (Orange Accent kept as is for variety) */}
+                                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 h-full">
+                                    <div className="w-14 h-14 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center mb-6">
+                                        <Icon name="building-2" size={28} />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-4 text-slate-900">一等地の住所で信頼性を獲得</h3>
+                                    <p className="text-slate-500 leading-relaxed text-sm">
+                                        「姫路」というブランドエリアの住所を名刺やHP、登記に活用可能。地方出張所として、取引先からの信頼を損なうことなく活動拠点を持てます。
+                                    </p>
+                                </div>
+
+                                {/* Reason 3 (Green Accent kept as is for variety) */}
+                                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 h-full">
+                                    <div className="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6">
+                                        <Icon name="clock" size={28} />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-4 text-slate-900">最短翌日から開始可能</h3>
+                                    <p className="text-slate-500 leading-relaxed text-sm">
+                                        面倒な電気・水道・ネットの契約手続きは不要。審査通過後、最短翌日から鍵をお渡しします。急なプロジェクトの立ち上げや拠点移動にも柔軟に対応します。
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Manager Message */}
+                            {/* bg-gradient-to-r from-blue-600 to-indigo-700 -> from-rose-600 to-pink-700 */}
+                            <div className="mt-16 bg-gradient-to-r from-rose-600 to-pink-700 p-8 sm:p-12 rounded-[2.5rem] text-white flex flex-col md:flex-row items-center gap-10">
+                                <div className="md:w-1/3">
+                                    <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white/20">
+                                        <img src="images/himejistyleimage2" alt="Inside View" className="w-full h-48 object-cover" />
+                                    </div>
+                                </div>
+                                <div className="md:w-2/3">
+                                    <h3 className="text-2xl sm:text-3xl font-black mb-6">「身軽に進出し、着実に育てる」</h3>
+                                    {/* text-blue-50 -> text-rose-50 */}
+                                    <p className="text-rose-50 leading-relaxed text-lg mb-4">
+                                        姫路での新規事業、まずはコストを最小限に抑えてスタートしませんか？最初は「住所利用プラン」で市場の様子を伺い、事業拡大に合わせて同じ建物内の「完全個室」へアップグレードする企業様も増えています。
+                                    </p>
+                                    {/* text-blue-100 -> text-rose-100 */}
+                                    <p className="text-rose-100 text-sm font-bold flex items-center gap-2">
+                                        <Icon name="shield-check" size={18} /> 運営スタッフが郵便物の受け取りをサポート。遠隔地の支店管理も安心です。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Plans Section */}
+                    <section id="price" className="py-24 bg-white">
+                        <div className="max-w-7xl mx-auto px-6 text-center">
+                            {/* text-blue-600 -> text-rose-600 */}
+                            <h2 className="text-sm font-black text-rose-600 uppercase tracking-[0.3em] mb-4">Plan & Pricing</h2>
+                            <p className="text-3xl sm:text-4xl font-black text-slate-900 mb-6">初期費用0円。月額料金のみの明快なプラン</p>
+                            <p className="text-slate-500 mb-16 max-w-2xl mx-auto">隠れた追加費用はありません。ランニングコストを最小限に抑えた経営をサポートします。</p>
+
+                            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                                {/* Plan 1 */}
+                                <div className="group bg-slate-900 p-10 sm:p-12 rounded-[3rem] text-white flex flex-col text-left hover:translate-y-[-8px] transition-all duration-300 shadow-2xl shadow-slate-200">
+                                    <div className="mb-auto">
+                                        {/* bg-blue-600 -> bg-rose-600 */}
+                                        <div className="inline-block px-3 py-1 bg-rose-600 text-[10px] font-black rounded-full mb-6 tracking-widest uppercase">For Branch Office</div>
+                                        <h3 className="text-3xl font-bold mb-4">完全個室プラン</h3>
+                                        <p className="text-slate-400 text-sm mb-6 leading-relaxed">支店開設やサテライトオフィスに。家具付きの専有スペース。</p>
+                                        <div className="flex items-baseline gap-1 mb-8">
+                                            <span className="text-5xl font-black">8.8</span>
+                                            <span className="text-lg font-medium text-slate-400">万円 / 月 (税込)</span>
+                                        </div>
+                                        <ul className="space-y-4 mb-10 text-slate-300">
+                                            {[
+                                                "初期費用（保証金・手数料）0円",
+                                                "24時間365日利用可能な完全個室",
+                                                "法人登記・本店所在地として登録OK",
+                                                "家具・高速Wi-Fi・水道光熱費込み",
+                                                "専用ポスト・郵便受け取り無料"
+                                            ].map((item, i) => (
+                                                <li key={i} className="flex items-start gap-3">
+                                                    {/* text-blue-500 -> text-rose-500 */}
+                                                    <Icon name="check-circle" size={20} className="text-rose-500 flex-shrink-0 mt-0.5" />
+                                                    <span className="font-medium">{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    {/* hover:bg-blue-50 -> hover:bg-rose-50 */}
+                                    <a href={contactUrl} className="w-full py-4 bg-white text-slate-900 rounded-2xl font-black text-center hover:bg-rose-50 transition-colors">空室を問い合わせる</a>
+                                </div>
+
+                                {/* Plan 2 */}
+                                <div className="group bg-white p-10 sm:p-12 rounded-[3rem] border border-slate-200 flex flex-col text-left hover:translate-y-[-8px] transition-all duration-300">
+                                    <div className="mb-auto">
+                                        <div className="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-black rounded-full mb-6 tracking-widest uppercase">For Market Entry</div>
+                                        <h3 className="text-3xl font-bold mb-4 text-slate-900">住所登録プラン</h3>
+                                        <p className="text-slate-500 text-sm mb-6 leading-relaxed">まずは姫路に「連絡先」を。法人登記も可能な格安プラン。</p>
+                                        <div className="flex items-baseline gap-1 mb-8 text-slate-900">
+                                            <span className="text-5xl font-black">1.1</span>
+                                            <span className="text-lg font-medium text-slate-400">万円 / 月 (税込)</span>
+                                        </div>
+                                        <ul className="space-y-4 mb-10 text-slate-500">
+                                            {[
+                                                "初期費用 0円",
+                                                "姫路エリアの住所利用OK",
+                                                "法人登記（本店所在地）OK",
+                                                "個人専用ポストの設置無料",
+                                                "週1回の郵便物到着確認サービス"
+                                            ].map((item, i) => (
+                                                <li key={i} className="flex items-start gap-3">
+                                                    <Icon name="check-circle" size={20} className="text-slate-300 flex-shrink-0 mt-0.5" />
+                                                    <span className="font-medium">{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    <a href={contactUrl} className="w-full py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-center hover:bg-slate-200 transition-colors">プランに申し込む</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* CTA Section */}
+                    <section id="contact" className="py-24 bg-slate-900 text-white text-center">
+                        <div className="max-w-4xl mx-auto px-6">
+                            <h2 className="text-4xl sm:text-6xl font-black mb-8 leading-tight">
+                                コスト0円から、<br />
+                                姫路での第一歩を。
+                            </h2>
+                            <p className="text-slate-400 text-lg mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
+                                「大手企業の法人契約」の実績も多数ございます。<br />
+                                審査の内容や契約期間、プランの詳細などお気軽にお問い合わせください。
+                            </p>
+                            <a href={contactUrl} target="_blank" className="inline-flex items-center gap-4 bg-white text-slate-900 px-10 py-5 rounded-2xl font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-2xl">
+                                お問い合わせ・資料請求 <Icon name="chevron-right" size={28} />
+                            </a>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="bg-white py-12 border-t border-slate-100">
+                        <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
+                            <a href={homeUrl}>
+                                <img src="images/himejistylelogo1" alt="姫路スタイル" className="h-6 mb-8 opacity-60 hover:opacity-100 transition-opacity" />
+                            </a>
+                            <div className="flex gap-8 mb-8 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                                {/* hover:text-blue-600 -> hover:text-rose-600 */}
+                                <a href="#why" className="hover:text-rose-600">選ばれる理由</a>
+                                <a href="#price" className="hover:text-rose-600">料金プラン</a>
+                                <a href={contactUrl} className="hover:text-rose-600">お問い合わせ</a>
+                            </div>
+                            <p className="text-slate-400 text-[10px] font-bold tracking-[0.2em]">© {new Date().getFullYear()} 姫路スタイル. ALL RIGHTS RESERVED.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
