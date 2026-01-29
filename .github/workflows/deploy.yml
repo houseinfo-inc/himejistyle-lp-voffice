@@ -1,10 +1,24 @@
-- name: FTP Deploy
+name: Deploy to Sakura Internet
+
+on:
+  push:
+    branches:
+      - main  # mainブランチに保存されたら実行
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # ⚠️ さくらインターネットの証明書エラーを回避する設定
+          # ⚠️ さくらインターネット接続用の必須オプション
           port: 21
           protocol: ftp
           security: loose
