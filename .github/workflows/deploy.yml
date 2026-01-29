@@ -18,8 +18,10 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          # ⚠️ さくらインターネットで接続を維持するための設定
           port: 21
           protocol: ftp
           security: loose
-          # ⚠️ 接続エラーを回避するため、パスの書き方を微調整
-          server-dir: ./www/pub/ad/voffice/
+          
+          # ⚠️ 画像（image_506ad4.png）の構成に完璧に合わせました
+          server-dir: www/pub/ad/voffice/
