@@ -1,4 +1,4 @@
-name: Deploy to Sakura Internet
+name: Deploy to Sakura via SFTP
 
 on:
   push:
@@ -12,17 +12,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: SFTP Deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          # Secretsに登録済みの情報（himejistyle / himejistyle.sakura.ne.jp）
           username: ${{ secrets.FTP_USERNAME }}
+          server: ${{ secrets.FTP_SERVER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          security: loose
-          # ⚠️ 接続維持時間を延ばして、データ転送中の切断を防ぎます
-          timeout: 60000
+          # ⚠️ 重要：SFTP用の 22 番ポートを使います
+          port: 22 
           
-          # ⚠️ 自分のホームディレクトリ（./）から開始する書き方に変更
-          server-dir: ./www/pub/ad/voffice/
+          # ⚠️ 画像（image_506ad4.png）で確認した正確なフルパス
+          local_path: './*'
+          remote_path: '/home/himejistyle/www/pub/ad/voffice/'
+          
+          # 初回接続時の確認をスキップする設定
+          args: '-o StrictHostKeyChecking=no'
