@@ -18,12 +18,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # ⚠️ さくらインターネットで安定させるための設定
           port: 21
           protocol: ftp
           security: loose
-          # ⚠️ 通信の不具合を防ぐため、1ファイルずつ確実に送る設定（追加）
-          concurrency: 1
+          # ⚠️ 接続維持時間を延ばして、データ転送中の切断を防ぎます
+          timeout: 60000
           
-          # ⚠️ 画像（image_506ad4.png）の構成に完璧に合わせたパス
-          server-dir: www/pub/ad/voffice/
+          # ⚠️ 自分のホームディレクトリ（./）から開始する書き方に変更
+          server-dir: ./www/pub/ad/voffice/
