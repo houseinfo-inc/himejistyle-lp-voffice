@@ -3,7 +3,7 @@ name: Deploy to Sakura Internet
 on:
   push:
     branches:
-      - main  # mainブランチに保存されたら実行
+      - main
 
 jobs:
   deploy:
@@ -18,10 +18,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # ⚠️ さくらインターネット接続用の必須オプション
           port: 21
           protocol: ftp
           security: loose
-          
-          # ⚠️ 画像（image_506ad4.png）に基づいた正確な階層を指定
-          server-dir: /www/pub/ad/voffice/
+          # ⚠️ 接続エラーを回避するため、パスの書き方を微調整
+          server-dir: ./www/pub/ad/voffice/
