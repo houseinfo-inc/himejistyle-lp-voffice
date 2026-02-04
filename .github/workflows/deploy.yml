@@ -1,10 +1,8 @@
 name: Deploy to Sakura via SFTP
-
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,9 +20,9 @@ jobs:
           # ⚠️ 重要：SFTP用の 22 番ポートを使います
           port: 22 
           
-          # ⚠️ 画像（image_506ad4.png）で確認した正確なフルパス
+          # ⚠️ 下記の赤字にアップするフォルダ名(赤********)をいれる
           local_path: './*'
-          remote_path: '/home/himejistyle/www/pub/ad/voffice/'
+          remote_path: '/home/himejistyle/www/pub/ad/**********/'
           
           # 初回接続時の確認をスキップする設定
           args: '-o StrictHostKeyChecking=no'
