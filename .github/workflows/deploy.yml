@@ -22,7 +22,7 @@ jobs:
           
           # ⚠️ 下記の赤字にアップするフォルダ名(赤********)をいれる
           local_path: './*'
-          remote_path: '/home/himejistyle/www/pub/ad/**********/'
+          remote_path: '/home/himejistyle/www/pub/ad/voffice/'
           
           # 初回接続時の確認をスキップする設定
           args: '-o StrictHostKeyChecking=no'
